@@ -1,0 +1,29 @@
+version: '3'
+services:
+  cdw:
+    image: gpdb7
+    hostname: cdw
+    ports:
+    - 5432:5432
+    links: 
+    - sdw1
+    - sdw2
+    volumes:
+    - pgdata:/gpdata 
+
+  sdw1:
+    image: gpdb7
+    hostname: sdw1
+    entrypoint: gpdb-seg-entrypoint.sh 
+    volumes:
+    - pgdata:/gpdata
+   
+  sdw2:
+    image: gpdb7
+    hostname: sdw2
+    entrypoint: gpdb-seg-entrypoint.sh 
+    volumes:
+    - pgdata:/gpdata
+    
+volumes: 
+  pgdata:
